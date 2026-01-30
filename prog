@@ -16,18 +16,31 @@ import button
 
 def onButtonA_0():
     while True:
-        dcmotor.rotate('cw', 'cw')
-        dcmotor.set_power(100, 100)
         if (analogValueMap(irphoto_P2.get_value()) > 3):
+            img = Image('11111:11111:11111:11111:11111')
+            img.set_base_color((31, 0, 0))
+            display.show(img, delay = 0)
             dcmotor.set_power(0, 0)
             setAngle('P15', 90)
             setAngle('P15', 0)
             time.sleep(1)
             setAngle('P15', 90)
+            while not (analogValueMap(irphoto_P2.get_value()) < 3):
+                pass
 
-        while not (analogValueMap(irphoto_P2.get_value()) < 3):
-            pass
+        img = Image('11111:11111:11111:11111:11111')
+        img.set_base_color((0, 19, 0))
+        display.show(img, delay = 0)
+        dcmotor.rotate('cw', 'cw')
+        dcmotor.set_power(5, 5)
 
+
+def onButtonB_0():
+    img = Image('11111:11111:11111:11111:11111')
+    img.set_base_color((31, 0, 0))
+    display.show(img, delay = 0)
+    dcmotor.set_power(0, 0)
 
 button.register('A', onButtonA_0)
+button.register('B', onButtonB_0)
 button.useButtonEvent()

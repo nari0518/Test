@@ -1,0 +1,33 @@
+from pystubit.board import *
+from pyatcrobo2 import *
+import stubitapp.dcmotor as dcmotor
+from util import *
+import time
+import random
+import math
+import _thread
+
+setMotor(2,Servomotor('P15'))
+irphoto_P2 = IRPhotoReflector('P2')
+setCalibAngle([0, 0, 0, 0])
+dcmotor.set_calib(100, 100)
+
+import button
+
+def onButtonA_0():
+    while True:
+        dcmotor.rotate('cw', 'cw')
+        dcmotor.set_power(100, 100)
+        if (analogValueMap(irphoto_P2.get_value()) > 3):
+            dcmotor.set_power(0, 0)
+            setAngle('P15', 90)
+            setAngle('P15', 0)
+            time.sleep(1)
+            setAngle('P15', 90)
+
+        while not (analogValueMap(irphoto_P2.get_value()) < 3):
+            pass
+
+
+button.register('A', onButtonA_0)
+button.useButtonEvent()

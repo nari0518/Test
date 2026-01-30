@@ -32,7 +32,7 @@ def onButtonA_0():
         img.set_base_color((0, 19, 0))
         display.show(img, delay = 0)
         dcmotor.rotate('cw', 'cw')
-        dcmotor.set_power(5, 5)
+        dcmotor.set_power(50, 50)
 
 
 def onButtonB_0():
